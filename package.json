@@ -1,0 +1,13 @@
+{
+  "name": "voting-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Felipe Santos <felipefss@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  }
+}
