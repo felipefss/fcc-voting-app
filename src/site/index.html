@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Voting App</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/bootstrap.css" rel="stylesheet">
-    </head>
-    <body>
-        <h1 class="text-center">Voting App</h1>
-    </body>
+
+<head>
+    <title>Voting App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body ng-app="voting" ng-strict-di>
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" 
+                        type="button" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a class="navbar-brand text-uppercase" href="/">Voting-app</a>
+                </div> <!-- /.navbar-header -->
+
+                <div id="menu-collapse" class="collapse navbar-collapse">
+                    <ul id="nav-list" class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">Login</a>
+                        </li>
+                        <li> <!-- Maybe use a dropdown btn here-->
+                            <a href="#">Logout</a>
+                        </li>
+                        <li id="navSigninButton">
+                            <a class="btn btn-primary" href="#" role="button">Sign In</a>
+                        </li>
+                    </ul>
+                </div>
+            </div> <!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <!-- Library -->
+    <script src="lib/jquery-3.2.0.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+
+</body>
+
 </html>

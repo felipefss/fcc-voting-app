@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+/* HEADER */
+#nav-list {
+    text-align: center;
+}
+
+#navSigninButton > a {
+    color: #FFF;
+}
+
+#navSigninButton > a:hover, #navSigninButton > a:focus {
+    color: #000;
+}
