@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body ng-app="voting" ng-strict-di>
+<body ng-app="votingApp" ng-strict-di>
     <header>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -37,12 +37,23 @@
                             <a class="btn btn-primary" href="#" role="button">Sign In</a>
                         </li>
                     </ul>
-                </div>
+                </div> <!-- /#menu-collapse -->
             </div> <!-- /.container-fluid -->
         </nav>
     </header>
 
-    <ui-view></ui-view>
+    <div id="main-content" class="container">
+        <ui-view></ui-view>
+    </div>
+
+    <footer class="panel-footer">
+        <div class="container-fluid">
+            <p class="pull-right">
+                Developed by
+                <a href="https://github.com/felipefss" target="_blank">Felipe Santos</a>
+            </p>
+        </div>
+    </footer>
 
     <!-- Library -->
     <script src="lib/jquery-3.2.0.min.js"></script>
@@ -50,6 +61,13 @@
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-ui-router.min.js"></script>
 
+    <!-- Modules -->
+    <!-- Main module -->
+    <script src="src/voting-app.module.js"></script>
+    <script src="src/voting-app.routes.js"></script>
+
+    <!-- Public -->
+    <script src="src/home/home.controller.js"></script>
 </body>
 
 </html>

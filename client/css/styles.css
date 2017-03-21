@@ -1,5 +1,13 @@
+/* COMMON */
 * {
     box-sizing: border-box;
+}
+
+#main-content {
+    background: #7887AB;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
 }
 
 /* HEADER */
@@ -13,4 +21,9 @@
 
 #navSigninButton > a:hover, #navSigninButton > a:focus {
     color: #000;
+}
+
+/* FOOTER */
+.panel-footer {
+    padding-bottom: 0;
 }
