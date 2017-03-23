@@ -46,6 +46,14 @@ passport.use(new LocalStrategy(
     }
 ));
 
+app.post('/auth',
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true
+    })
+);
+
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
