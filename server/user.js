@@ -38,17 +38,17 @@ const User = {
                     reject(err);
                     return;
                 }
-
+                
                 const users = db.collection('users');
-                users.insertOne({ username: username, password: toBase64(password) })
-                    .then(result => {
+                users.insertOne({ username: username, password: toBase64(password) }, (err, result) => {
+                    if (err) {
                         db.close();
-                        resolve();
-                    })
-                    .catch(err => {
-                        db.close();
-                        reject();
-                    });
+                        reject(err);
+                        return;
+                    }
+                    
+                    resolve(result.insertedId);
+                });
             });
         });
     },

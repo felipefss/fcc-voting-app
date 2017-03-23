@@ -10,6 +10,10 @@
                 url: '/',
                 templateUrl: 'src/home/home.html',
                 controller: 'HomeController as homeCtrl'
+            })
+            .state('signup', {
+                url: '/sign-up',
+                templateUrl: 'src/auth/sign-up.html'
             });
     }
 })();

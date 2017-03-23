@@ -21,7 +21,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function (user, done) {
-    done(null, user._id);
+    done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
@@ -45,6 +45,31 @@ passport.use(new LocalStrategy(
         });
     }
 ));
+
+app.post('/register', (req, res, next) => {
+    const user = req.body;
+    User.create(user.username, user.password)
+        .then((userId) => {
+            user.id = userId;
+            req.login(user, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                return res.redirect('/');
+            });
+        })
+        .catch(err => {
+            if (err.code === 11000) {
+                console.log('USER ALREADY EXISTS');
+                /**
+                 * ARRUMAR ISSO AQUI!!!
+                 */
+                res.redirect('/');
+            } else {
+                console.error(err.message);
+            }
+        });
+});
 
 app.post('/auth',
     passport.authenticate('local', {
