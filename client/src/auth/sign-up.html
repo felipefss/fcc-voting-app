@@ -1,14 +1,18 @@
 <h1 class="text-center">Register New User</h1>
 <div class="panel panel-default col-sm-offset-4 col-sm-4">
-    <form action="/register" method="POST">
+    <form name="regForm" action="/register" method="POST" novalidate>
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" name="username" placeholder="Username" class="form-control">
+            <input type="text" name="username" placeholder="Username" class="form-control"
+                ng-model="signUp.name" required>
+            <p ng-if="regForm.username.$error.required && regForm.username.$touched">Name is required</p>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Password" class="form-control">
+            <input type="password" name="password" placeholder="Password" class="form-control"
+                ng-model="signUp.pass" required>
+            <p ng-if="regForm.password.$error.required && regForm.password.$touched">Name is required</p>
         </div>
-        <button type="submit" class="btn btn-default">Register</button>
+        <button type="submit" class="btn btn-default" ng-disabled="regForm.$invalid">Register</button>
     </form>
 </div>

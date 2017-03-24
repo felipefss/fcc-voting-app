@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    angular.module('votingApp', ['ui.router']).config(config);
+    angular.module('votingApp', ['ui.router', 'ngCookies', 'angular-jwt'])
+        .config(config);
 
     config.$inject = ['$urlRouterProvider'];
     function config($urlRouterProvider) {

@@ -1,9 +1,7 @@
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const LocalStrategy = require('passport-local').Strategy;
-const passport = require('passport');
-const session = require('express-session');
+const jwt = require('jsonwebtoken');
 const User = require('./server/user');
 
 const app = express();
@@ -12,51 +10,37 @@ const PORT = process.env.PORT || 5000;
 app.use('/', express.static(`${__dirname}/client`));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
+const generateJWT = (user) => {
+    const payload = {
+        user: user.username,
+        id: user.id
+    };
 
-passport.deserializeUser(function (id, done) {
-    User.findById(id)
-        .then(user => {
-            done(null, user);
-        })
-        .catch(err => {
-            done(err, null);
-        });
-});
+    return jwt.sign(payload, process.env.JWTSECRET || 'myvotingapp');
+};
 
-passport.use(new LocalStrategy(
-    (username, password, done) => {
-        User.find(username).then(user => {
-            if (!user || !User.isValidPass(password, user.password)) {
-                return done(null, false, { message: 'User/password invalid.' });
+const validateJWT = (token) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWTSECRET || 'myvotingapp', (err, payload) => {
+            if (err) {
+                reject(err);
+                return;
             }
 
-            return done(null, user);
+            resolve(payload);
         });
-    }
-));
+    });
+};
 
-app.post('/register', (req, res, next) => {
+app.post('/register', (req, res) => {
     const user = req.body;
     User.create(user.username, user.password)
         .then((userId) => {
             user.id = userId;
-            req.login(user, (err) => {
-                if (err) {
-                    return next(err);
-                }
-                return res.redirect('/');
-            });
+
+            res.cookie('session', generateJWT(user));
+            res.redirect('/');
         })
         .catch(err => {
             if (err.code === 11000) {
@@ -71,13 +55,26 @@ app.post('/register', (req, res, next) => {
         });
 });
 
-app.post('/auth',
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    })
-);
+app.post('/login', (req, res) => {
+    const reqUser = req.body;
+    User.findByName(reqUser.username)
+        .then(user => {
+            if (user && User.isValidPass(reqUser.password, user.password)) {
+                res.cookie('session', generateJWT(user));
+                res.redirect('/');
+            } else {
+                console.log(user);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        });
+});
+
+app.get('/logout', (req, res) => {
+    res.clearCookie('session');
+    res.redirect('/');
+});
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

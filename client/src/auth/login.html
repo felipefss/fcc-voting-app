@@ -1,0 +1,18 @@
+<h1 class="text-center">Log In</h1>
+<div class="panel panel-default col-sm-offset-4 col-sm-4">
+    <form name="loginForm" action="/login" method="POST" novalidate>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="Username" class="form-control"
+                ng-model="login.name" required>
+            <p ng-if="loginForm.username.$error.required && loginForm.username.$touched">Name is required</p>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Password" class="form-control"
+                ng-model="login.pass" required>
+            <p ng-if="loginForm.password.$error.required && loginForm.password.$touched">Password is required</p>
+        </div>
+        <button type="submit" class="btn btn-default" ng-disabled="loginForm.$invalid">Register</button>
+    </form>
+</div>

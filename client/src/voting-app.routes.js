@@ -13,7 +13,13 @@
             })
             .state('signup', {
                 url: '/sign-up',
-                templateUrl: 'src/auth/sign-up.html'
+                templateUrl: 'src/auth/sign-up.html',
+                controllerAs: 'signUp'
+            })
+            .state('login', {
+                url: '/login',
+                templateUrl: 'src/auth/login.html',
+                controllerAs: 'login'
             });
     }
 })();

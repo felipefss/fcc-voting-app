@@ -25,15 +25,18 @@
                     <a class="navbar-brand text-uppercase" href="/">Voting-app</a>
                 </div> <!-- /.navbar-header -->
 
-                <div id="menu-collapse" class="collapse navbar-collapse">
+                <div id="menu-collapse" class="collapse navbar-collapse" ng-controller="MenuController as menu">
                     <ul id="nav-list" class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">Log In</a>
+                        <li ng-if="menu.username">
+                            <a>Hello, {{menu.username}}</a>
                         </li>
                         <li> <!-- Maybe use a dropdown btn here-->
-                            <a href="#">Log Out</a>
+                            <a href="/logout" ng-if="menu.username">Log Out</a>
                         </li>
-                        <li id="navSigninButton">
+                        <li>
+                            <a ui-sref="login" ng-if="!menu.username">Log In</a>
+                        </li>
+                        <li id="navSigninButton" ng-if="!menu.username">
                             <a class="btn btn-primary" ui-sref="signup" role="button">Sign Up</a>
                         </li>
                     </ul>
@@ -60,6 +63,8 @@
     <script src="lib/bootstrap.min.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-ui-router.min.js"></script>
+    <script src="lib/angular-cookies.min.js"></script>
+    <script src="lib/angular-jwt.min.js"></script>
 
     <!-- Modules -->
     <!-- Main module -->
@@ -67,7 +72,9 @@
     <script src="src/voting-app.routes.js"></script>
 
     <!-- Public -->
+    <script src="src/menu/menu.controller.js"></script>
     <script src="src/home/home.controller.js"></script>
+    <script src="src/auth/auth.service.js"></script>
 </body>
 
 </html>
