@@ -3,8 +3,8 @@
 
     angular.module('votingApp').controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$cookies'];
-    function HomeController($cookies) {
+    HomeController.$inject = [];
+    function HomeController() {
         var homeCtrl = this;
     }
 })();

@@ -1,6 +1,9 @@
 <h1 class="text-center">Register New User</h1>
 <div class="panel panel-default col-sm-offset-4 col-sm-4">
-    <form name="regForm" action="/register" method="POST" novalidate>
+    <form name="regForm" novalidate>
+        <div class="alert alert-danger text-center" ng-if="signUp.invalid" role="alert">
+            <strong>{{signUp.invalidMsg}}</strong>
+        </div>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" name="username" placeholder="Username" class="form-control"
@@ -13,6 +16,8 @@
                 ng-model="signUp.pass" required>
             <p ng-if="regForm.password.$error.required && regForm.password.$touched">Name is required</p>
         </div>
-        <button type="submit" class="btn btn-default" ng-disabled="regForm.$invalid">Register</button>
+        <button type="submit" class="btn btn-default" ng-click="signUp.submit($event)" ng-disabled="regForm.$invalid">
+            Register
+        </button>
     </form>
 </div>

@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use('/', express.static(`${__dirname}/client`));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const generateJWT = (user) => {
     const payload = {
@@ -40,30 +40,27 @@ app.post('/register', (req, res) => {
             user.id = userId;
 
             res.cookie('session', generateJWT(user));
-            res.redirect('/');
+            res.sendStatus(201);
         })
         .catch(err => {
             if (err.code === 11000) {
                 console.log('USER ALREADY EXISTS');
-                /**
-                 * ARRUMAR ISSO AQUI!!!
-                 */
-                res.redirect('/');
+                res.sendStatus(401);
             } else {
                 console.error(err.message);
             }
         });
 });
 
-app.post('/login', (req, res) => {
+app.post('/auth', (req, res) => {
     const reqUser = req.body;
     User.findByName(reqUser.username)
         .then(user => {
             if (user && User.isValidPass(reqUser.password, user.password)) {
                 res.cookie('session', generateJWT(user));
-                res.redirect('/');
+                res.sendStatus(200);
             } else {
-                console.log(user);
+                res.sendStatus(401);
             }
         })
         .catch(err => {
@@ -74,6 +71,10 @@ app.post('/login', (req, res) => {
 app.get('/logout', (req, res) => {
     res.clearCookie('session');
     res.redirect('/');
+});
+
+app.use((req, res) => {
+    res.sendFile(`${__dirname}/client/index.html`);
 });
 
 app.listen(PORT, () => {

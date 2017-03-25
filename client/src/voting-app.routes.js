@@ -1,25 +1,24 @@
 (function () {
     'use strict';
-    
+
     angular.module('votingApp').config(routeConfig);
 
-    routeConfig.$inject = ['$stateProvider'];
-    function routeConfig($stateProvider) {
-        $stateProvider
-            .state('home', {
-                url: '/',
+    routeConfig.$inject = ['$routeProvider'];
+    function routeConfig($routeProvider) {
+        $routeProvider
+            .when('/', {
                 templateUrl: 'src/home/home.html',
                 controller: 'HomeController as homeCtrl'
             })
-            .state('signup', {
-                url: '/sign-up',
+            .when('/sign-up', {
                 templateUrl: 'src/auth/sign-up.html',
-                controllerAs: 'signUp'
+                controller: 'SignUpController as signUp'
             })
-            .state('login', {
-                url: '/login',
+            .when('/login', {
                 templateUrl: 'src/auth/login.html',
-                controllerAs: 'login'
+                controller: 'LoginController as login'
             });
+
+        $routeProvider.otherwise('/');
     }
 })();
