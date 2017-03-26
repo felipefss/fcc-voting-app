@@ -48,6 +48,7 @@ app.post('/register', (req, res) => {
                 res.sendStatus(401);
             } else {
                 console.error(err.message);
+                res.sendStatus(500);
             }
         });
 });
@@ -64,7 +65,8 @@ app.post('/auth', (req, res) => {
             }
         })
         .catch(err => {
-            console.error(err);
+            console.error(err.message);
+            res.sendStatus(500);
         });
 });
 
