@@ -8,7 +8,6 @@
 
         var cancelListener = $rootScope.$on('auth:userLoggedIn', function(event) {
             menu.username = AuthenticationService.getUserName();
-            console.log('here');
             console.log(event);
         });
 

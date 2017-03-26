@@ -1,0 +1,55 @@
+<h1 class="text-center white-text">Choose poll options:</h1>
+
+<div class="col-md-offset-4 col-md-4">
+    <div class="panel panel-default">
+        <form name="newPollForm" novalidate>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label" for="title">Title</label>
+                    <div class="col-xs-10">
+                        <input class="form-control" type="text" name="title" placeholder="Who will win the war?"
+                         ng-model="newPoll.title" required>
+                    </div>
+                </div> <!-- /.form-group -->
+
+                <div class="alert alert-danger" role="alert"
+                 ng-if="newPollForm.title.$error.required && newPollForm.title.$touched">
+                    <strong>The title must be filled</strong>
+                </div>
+
+                <label>Options</label>
+                <div class="form-group" ng-repeat="option in newPoll.options track by $index">
+                    <div class="col-xs-10">
+                        <input class="form-control" type="text" ng-model="option.option"
+                         ng-attr-placeholder="{{option.placeHolder}}">
+                    </div>
+                    <button class="btn btn-danger" ng-click="newPoll.removeOption($index)">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </div> <!-- /ng-repeat -->
+
+                <div class="alert alert-danger" role="alert" ng-if="newPoll.invalid">
+                    <strong>You need to fill at least 2 options</strong>
+                </div>
+
+                <button type="button" class="btn btn-default pull-right" data-toggle="tooltip" data-placement="left"
+                 title="Add new option" ng-click="newPoll.addNewOption()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                <div class="clearfix"></div>
+
+                <button type="submit" class="btn btn-success" ng-click="newPoll.submit()"
+                 ng-disabled="newPollForm.$invalid">
+                    Create Poll
+                </button>
+            </div> <!-- /.form-horizontal -->
+        </form>
+
+        <div ng-if="newPoll.error">
+            <br>
+            <div class="alert alert-danger text-center">
+                <strong>Internal Error</strong>
+            </div>
+        </div>
+    </div>
+</div>

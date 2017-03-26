@@ -1,0 +1,15 @@
+<div class="text-center">
+    <h1 class="white-text">Voting App</h1>
+    <div class="well text-center" ng-if="!homeCtrl.polls || homeCtrl.polls.length === 0">
+        <h3>There are no polls in the database</h3>
+        <h4 ng-if="!homeCtrl.user">Please login to create a new poll</h4>
+
+        <a href="/new-poll" type="button" class="btn btn-success btn-lg" ng-if="homeCtrl.user">Create Poll</a>
+    </div>
+
+    <div ng-if="homeCtrl.polls && homeCtrl.polls.length > 0">
+        <h3 class="white-text">Select a poll below to vote and see the results</h3>
+
+        <all-polls polls="homeCtrl.polls"></all-polls>
+    </div>
+</div>

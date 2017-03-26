@@ -2,8 +2,8 @@
     angular.module('votingApp')
         .service('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$cookies', 'jwtHelper', '$q', '$http'];
-    function AuthenticationService($cookies, jwtHelper, $q, $http) {
+    AuthenticationService.$inject = ['$cookies', 'jwtHelper', '$http'];
+    function AuthenticationService($cookies, jwtHelper, $http) {
         var service = this;
 
         function getParsedCookies() {
@@ -26,8 +26,8 @@
                 function (response) {
                     return response.status;
                 },
-                function (rejection) {
-                    return rejection.status;
+                function (reason) {
+                    return reason.status;
                 }
             );
         };
