@@ -10,28 +10,99 @@
     margin-bottom: 20px;
 }
 
+.white-text {
+    color: #FFF;
+}
+
 .ng-touched.ng-valid {
-    border: 2px green solid;
+    border: 2px #0F0 solid;
 }
 
 .ng-touched.ng-invalid {
-    border: 2px red solid;
+    border: 2px #F00 solid;
 }
+/* COMMON END */
 
 /* HEADER */
 #nav-list {
     text-align: center;
 }
 
-#navSigninButton > a {
+#nav-list > li {
+    margin: 0 3px;
+}
+
+.navbar-nav > li.navButton > a {
     color: #FFF;
 }
 
-#navSigninButton > a:hover, #navSigninButton > a:focus {
+.navbar-nav > li.navButton > .btn-primary:focus,
+.navbar-nav > li.navButton > .btn-primary.focus {
+  color: #fff;
+  background-color: #286090;
+  border-color: #122b40;
+}
+
+.navbar-nav > li.navButton > .btn-primary:hover {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+
+.navbar-nav > li.navButton > a:hover, .navbar-nav > li.navButton > a:focus {
     color: #000;
 }
+
+.navbar-nav > li.navButton > .btn-success:hover {
+  color: #fff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+
+.navbar-nav > li.navButton > .btn-success:focus,
+.navbar-nav > li.navButton > .btn-success.focus {
+  color: #fff;
+  background-color: #449d44;
+  border-color: #255625;
+}
+/* HEADER END */
 
 /* FOOTER */
 .panel-footer {
     padding-bottom: 0;
 }
+/* FOOTER END */
+
+/* HOME VIEW */
+.polls-list {
+    margin: 10px 100px;
+}
+
+button.list-group-item {
+    text-align: center;
+}
+/* HOME VIEW END */
+
+/* POLL VIEW */
+[google-chart] {
+    height: 300px;
+    width: 90%;
+}
+/* POLL VIEW  END */
+
+/* MY-POLLS VIEW */
+.my-polls-list {
+    margin: 10px 20px 10px 50px;
+}
+
+.my-polls {
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
+a.list-group-item-danger {
+    background: #F00;
+    color: #FFF;
+}
+
+/* MY-POLLS VIEW */

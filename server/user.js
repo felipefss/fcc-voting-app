@@ -1,10 +1,9 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
-const ObjectID = require('mongodb').ObjectID;
 const { toBase64, fromBase64 } = require('./utils');
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/voting';
+const MONGO_URI = process.env.MONGO_URI;
 
 /**
  * Creates an unique index on the 'username' field, if not already created.
@@ -31,6 +30,43 @@ MongoClient.connect(MONGO_URI, (err, db) => {
  * MongoDB user methods.
  */
 const User = {
+    addCreatedPoll: (username, newPollId) => {
+        return new Promise((resolve, reject) => {
+            MongoClient.connect(MONGO_URI, (err, db) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+
+                const users = db.collection('users');
+                User.findByName(username)
+                    .then(result => {
+                        const updateObj = {
+                            polls: result.polls || []
+                        };
+                        updateObj.polls.push(newPollId);
+
+                        users.updateOne({ username: username }, {
+                            $set: updateObj
+                        }, (err, result) => {
+                            if (err) {
+                                db.close();
+                                reject(err);
+                                return;
+                            }
+
+                            db.close();
+                            resolve();
+                        });
+                    })
+                    .catch(err => {
+                        db.close();
+                        reject(err);
+                    });
+            });
+        });
+    },
+
     create: (username, password) => {
         return new Promise((resolve, reject) => {
             MongoClient.connect(MONGO_URI, (err, db) => {
@@ -38,16 +74,16 @@ const User = {
                     reject(err);
                     return;
                 }
-                
+
                 const users = db.collection('users');
-                users.insertOne({ username: username, password: toBase64(password) }, (err, result) => {
+                users.insertOne({ username: username, password: toBase64(password), polls: [] }, (err, result) => {
                     if (err) {
                         db.close();
                         reject(err);
                         return;
                     }
-                    
-                    resolve(result.insertedId);
+
+                    resolve();
                 });
             });
         });
@@ -63,28 +99,6 @@ const User = {
 
                 const users = db.collection('users');
                 users.findOne({ username: username })
-                    .then(user => {
-                        db.close();
-                        resolve(user);
-                    })
-                    .catch(err => {
-                        db.close();
-                        reject(err);
-                    });
-            });
-        });
-    },
-
-    findById: (id) => {
-        return new Promise((resolve, reject) => {
-            MongoClient.connect(MONGO_URI, (err, db) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-
-                const users = db.collection('users');
-                users.findOne({ _id: ObjectID.createFromHexString(id) })
                     .then(user => {
                         db.close();
                         resolve(user);

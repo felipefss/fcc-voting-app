@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('votingApp', ['ngRoute', 'ngCookies', 'angular-jwt'])
+    angular.module('votingApp', ['ngRoute', 'ngCookies', 'angular-jwt', 'googlechart'])
         .config(config);
 
     config.$inject = ['$locationProvider', '$compileProvider'];

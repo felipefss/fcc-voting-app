@@ -1,0 +1,20 @@
+<div ng-class="{'col-xs-9': $ctrl.myPolls}">
+    <div class="panel panel-default" ng-class="{'my-polls-list': $ctrl.myPolls, 'polls-list': !$ctrl.myPolls}">
+        <div class="list-group">
+            <a ng-href="/view-poll/{{poll.id}}" class="list-group-item" ng-repeat="poll in $ctrl.polls track by $index">
+                {{ poll.title }}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div ng-if="$ctrl.myPolls" class="col-xs-3">
+    <div class="panel panel-default my-polls">
+        <div class="list-group">
+            <a ng-href="#" class="list-group-item list-group-item-danger text-center"
+             ng-click="$ctrl.deleteItem($index)" ng-repeat="poll in $ctrl.polls track by $index">
+                DELETE
+            </a>
+        </div>
+    </div>
+</div>

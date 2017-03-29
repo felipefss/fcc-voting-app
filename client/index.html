@@ -16,7 +16,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" 
-                        type="button" aria-expanded="false">
+                     type="button" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -28,16 +28,22 @@
 
                 <div id="menu-collapse" class="collapse navbar-collapse" ng-controller="MenuController as menu">
                     <ul id="nav-list" class="nav navbar-nav navbar-right">
-                        <li ng-if="menu.username">
+                        <li ng-if="menu.username" class="hidden-xs">
                             <a>Hello, {{ ::menu.username }}</a>
+                        </li>  <!-- Use a dropdown btn here for options (delete account/see polls) -->
+                        <li class="navButton" ng-if="menu.username">
+                            <a href="/my-polls" class="btn btn-primary" role="button">My Polls</a>
                         </li>
-                        <li> <!-- Maybe use a dropdown btn here-->
+                        <li class="navButton" ng-if="menu.username">
+                            <a href="/new-poll" class="btn btn-success"  role="button">New Poll</a>
+                        </li>
+                        <li>
                             <a href="/logout" target="_self" ng-if="menu.username">Log Out</a>
                         </li>
                         <li>
                             <a href="/login" ng-if="!menu.username">Log In</a>
                         </li>
-                        <li id="navSigninButton" ng-if="!menu.username">
+                        <li class="navButton" ng-if="!menu.username">
                             <a class="btn btn-primary" href="/sign-up" role="button">Sign Up</a>
                         </li>
                     </ul>
@@ -47,7 +53,6 @@
     </header>
 
     <div id="main-content" class="container">
-        <!--<ui-view></ui-view>-->
         <ng-view></ng-view>
     </div>
 
@@ -67,6 +72,7 @@
     <script src="lib/angular-route.min.js"></script>
     <script src="lib/angular-cookies.min.js"></script>
     <script src="lib/angular-jwt.min.js"></script>
+    <script src="lib/ng-google-chart.min.js"></script>
 
     <!-- Modules -->
     <!-- Main module -->
@@ -79,9 +85,16 @@
     <script src="src/home/home.controller.js"></script>
     <script src="src/auth/login.controller.js"></script>
     <script src="src/auth/sign-up.controller.js"></script>
+    <script src="src/polls/new-poll.controller.js"></script>
+    <script src="src/polls/poll.controller.js"></script>
+    <script src="src/polls/my-polls.controller.js"></script>
 
     <!-- Services -->
     <script src="src/auth/auth.service.js"></script>
+    <script src="src/polls/polls.service.js"></script>
+
+    <!-- Components -->
+    <script src="src/polls/all-polls.component.js"></script>
 </body>
 
 </html>
